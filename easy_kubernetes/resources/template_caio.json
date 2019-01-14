@@ -1,0 +1,58 @@
+{
+  "services": [
+    {
+      "name": "occ",
+      "type": "occ",
+      "base_endpoint": "https://ccadmin-test-zcma.oracleoutsourcing.com/ccadmin"
+    },
+    {
+      "name": "oms-sync",
+      "type": "microservice",
+      "versions": [
+        "2",
+        "3"
+      ],
+      "base_endpoint": "http://mktp/mktp/oms-sync",
+      "resources": [
+        {
+          "type": "rabbit-mq",
+          "data": {
+            "username": "",
+            "password": "",
+            "host": "",
+            "port": ""
+          }
+        },
+        {
+          "type": "redis",
+          "data": {
+            "host": "",
+            "port": "",
+            "username": "",
+            "password": ""
+          }
+        },
+        {
+          "type": "db-oracle",
+          "data": {
+            "host": "",
+            "port": "",
+            "servicename": "",
+            "username": "",
+            "password": ""
+          }
+        },
+        {
+          "type": "db-mongo",
+          "data": {
+            "host": "",
+            "port": "",
+            "database": "",
+            "username": "",
+            "password": ""
+          }
+        }
+      ]
+    }
+  ]
+}

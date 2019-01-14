@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    name: 'python3-app-builder'
+spec:
+  containers:
+  - name: python-build
+    image: registry.ng.bluemix.net/livelo/stretch_python3:latest
+    resources:
+      limits:
+        memory: 4096Mi
+    tty: true
+    privileged: true
+  - name: docker-build
+    image: docker:dind
+    resources:
+      limits:
+        memory: 4096Mi
+    command:
+    - sh
+    tty: true
+    volumeMounts:
+    - mountPath: /var/run/docker.sock
+      name: docker-sock
+    securityContext:
+      allowPrivilegeEscalation: false
+  volumes:
+  - name: docker-sock
+    hostPath:
+      path: /var/run/docker.sock
+      type: Socket
