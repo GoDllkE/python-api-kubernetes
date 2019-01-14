@@ -35,38 +35,11 @@ pipeline {
                 sh(script: "chmod a+x dist/easy_kubernetes", returnStdout: false)
             }
         }
-//        stage('Realizando testes no modulo') {
-//            parallel {
-//                stage('Teste de execucao') { steps { sh "./dist/automation -h" } }
-//                stage('Teste de role') {
-//                    steps {
-//                        script {
-//                            // Teste 1
-//                            sh "./dist/easy_kubernetes --create=role --type=projectRoles --name=Temporario --pattern=.* --debug"
-//                            sh "./dist/easy_kubernetes --delete=role --type=projectRoles --name=Temporario --debug"
-//
-//                            // Teste 2
-//                            sh "./dist/automation --create=project_roles --id=TEMP --debug"
-//                            sh "./dist/automation --update=project_roles --id=TEMP --debug"
-//                            sh "./dist/automation --delete=project_roles  --id=TEMP --debug"
-//                        }
-//                    }
-//                }
-//                stage('Teste de projeto') {
-//                    steps {
-//                        script {
-//                            sh "./dist/automation --create=project --id=TEMP --debug"
-//                            sh "./dist/automation --create=deploy_jobs --id=TEMP --repo=https://stash.pontoslivelo.com.br/scm/temp/teste.git --debug"
-//                            sh "./dist/automation --check=deploy_jobs --id=TEMP --repo=https://stash.pontoslivelo.com.br/scm/temp/teste.git --debug"
-//                            sh "./dist/automation --delete=deploy_jobs --id=TEMP --repo=https://stash.pontoslivelo.com.br/scm/temp/teste.git --debug"
-//                            sh "./dist/automation --check=deploy_jobs --id=TEMP --repo=https://stash.pontoslivelo.com.br/scm/temp/teste.git --debug"
-//                            sh "./dist/automation --delete=deploy_jobs --id=TEMP --repo=https://stash.pontoslivelo.com.br/scm/temp/teste.git --debug"
-//                            sh "./dist/automation --delete=project --id=TEMP --debug"
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        stage('Subindo modulo para PYPI'){
+            steps {
+                sh(script: "twine upload dist/*", returnStdout: true)
+            }
+        }
         stage('Subindo modulo para o Nexus') {
             steps {
                 nexusArtifactUploader (
